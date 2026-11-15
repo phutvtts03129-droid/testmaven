@@ -20,17 +20,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
 
       - name: Setup Google Chrome
         uses: browser-actions/setup-chrome@v1
 
       - name: Run Selenium Automation Tests
-        run: mvn test -Dtest=CloudUITest
+        run: mvn -f testmaven/pom.xml test -Dtest=CloudUITest
 
       - name: Upload Test Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: selenium-test-reports
-          path: target/surefire-reports/
+          path: testmaven/target/surefire-reports/
